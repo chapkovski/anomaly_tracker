@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <form method="post" id="mturk_form" :action="action" ref="form">
-      <input type="hidden" name="assignmentId" :value="assignmentId" />
-      <input type="hidden" name="answer" :value="answer" />
-    </form>
+   
     <v-app>
       <Loading></Loading>
       <Main></Main>
