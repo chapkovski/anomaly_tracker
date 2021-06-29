@@ -1,12 +1,37 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <form method="post" id="mturk_form" :action="action" ref="form">
+      <input type="hidden" name="assignmentId" :value="assignmentId" />
+      <input type="hidden" name="answer" :value="answer" />
+    </form>
+    <v-app>
+      <Loading></Loading>
+      <Main></Main>
+    </v-app>
   </div>
 </template>
+
+
+<script>
+import Main from "@/components/Main.vue";
+import Loading from "@/components/Loading.vue";
+import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
+
+export default {
+  components: {
+    Loading,
+    Main,
+  },
+  async mounted() {
+    await this.getData();
+    const { lb, ub, marker, sandbox, assignmentId, hitId, workerId } =
+      this.$route.query;
+  },
+  methods: {
+    ...mapActions(["getData"]),
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
