@@ -22,7 +22,7 @@ Vue.config.productionTip = false
 
 new Vue({
   vuetify,
-  // router,
+  router,
   store,
   render: h => h(App)
 }).$mount('#app')
