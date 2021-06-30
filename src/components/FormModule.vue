@@ -12,7 +12,7 @@
         ></v-img>
       </div>
     </v-radio-group>
-    <v-btn elevation="2">Submit</v-btn>
+    <v-btn elevation="2"    @click="submittingForm" >Submit</v-btn>
   </form>
 </template>
 
@@ -52,6 +52,10 @@ export default {
       this.action = liveMturk;
     }
   },
-  methods: {},
+  methods: {
+    async submittingForm() {
+      this.$refs.form.submit();
+    },
+  },
 };
 </script>
