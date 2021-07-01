@@ -6,9 +6,9 @@
       <div v-for="i in options" :key="i.value">
         <v-radio :label="i.label" :value="i.value" name="answer"></v-radio>
         <v-img
-          max-height="150"
+          max-height="100"
           max-width="250"
-          :src="require(`@/assets/${i.img}.png`)"
+          :src="require(`@/assets/img/${i.img}.png`)"
         ></v-img>
       </div>
     </v-radio-group>
@@ -30,10 +30,12 @@ export default {
     answer: null,
 
     options: [
-      { value: 0, label: "No anomaly", img: 0 },
-      { value: 1, label: "Anomaly of Type 1", img: 1 },
-      { value: 2, label: "Anomaly of Type 2", img: 2 },
-      { value: 3, label: "Anomaly of Type 2", img: 3 },
+      { value: 0, label: "Time series with good data quality", img: 'normal' },
+      { value: 1, label: "Time series with sudden spikes to negative values", img: "neg" },
+      { value: 2, label: "Time series with sudden spikes to zero", img: "zero" },
+      { value: 3, label: "Time series with sudden positive spikes", img: "pos" },
+      { value: 4, label: "Time series with repeated positive spikes", img: "rep" },
+      
     ],
   }),
   created() {},

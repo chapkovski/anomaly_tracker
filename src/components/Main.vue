@@ -25,7 +25,6 @@ import DetailedChart from "@/components/DetailedChart.vue";
 export default {
   components: {
     FormModule,
-    FullChart,
     DetailedChart,
   },
   data: () => ({}),
