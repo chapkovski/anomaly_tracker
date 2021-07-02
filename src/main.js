@@ -12,7 +12,8 @@ dataModule(Highcharts);
 import Highcharts from "highcharts";
 import Stock from "highcharts/modules/stock";
 import HighchartsVue from "highcharts-vue";
-
+import stockInit from "highcharts/modules/stock";
+stockInit(Highcharts);
 Stock(Highcharts);
 Vue.use(HighchartsVue);
 

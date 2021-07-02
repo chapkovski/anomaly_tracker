@@ -20,12 +20,15 @@ export default {
     Main,
   },
   async mounted() {
+    const { lb, ub, marker, sandbox, assignmentId, hitId, workerId } =this.$route.query;
+    this.SET_ROUTEQS(this.$route.query)
     await this.getData();
-    const { lb, ub, marker, sandbox, assignmentId, hitId, workerId } =
-      this.$route.query;
+    
+
   },
   methods: {
     ...mapActions(["getData"]),
+    ...mapMutations(["SET_ROUTEQS"]),
   },
 };
 </script>

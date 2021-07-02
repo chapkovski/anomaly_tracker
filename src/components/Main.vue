@@ -4,9 +4,7 @@
     <v-row>
       <v-col cols="8">
         <v-row class="text-center">
-          <v-col cols="12">
-            <full-chart></full-chart>
-          </v-col>
+          
           <v-col cols="12">
             <detailed-chart></detailed-chart>
           </v-col>
