@@ -4,7 +4,7 @@ import _ from 'lodash'
 import axios from 'axios'
 Vue.use(Vuex)
 // TODO: make it modifiable?
-const dataURL = "https://t7oak2rx45.execute-api.us-east-1.amazonaws.com/Prod/databy";
+
 export default new Vuex.Store({
   state: {
     candidate: null,
@@ -42,8 +42,11 @@ export default new Vuex.Store({
 
     async getData({ commit, state, dispatch }) {
       // commit('DATA_LOADING')
-      
-      const resp = await axios.get(dataURL, {params:{file:state.fileName}})
+      const dataURL = "https://blocke-channels-bucket.s3.amazonaws.com";
+      const url = `${dataURL}/${state.fileName}.json`
+      console.debug("WHAT??A?", url)
+      const resp = await axios.get(url)
+      // const resp = await axios.get(dataURL, {params:{file:state.fileName}})
       console.debug(resp)
       const data = _.map(resp.data, (u) => {
         return { x: u.timestamp, y: u.value };
