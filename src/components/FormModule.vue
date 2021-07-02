@@ -12,35 +12,55 @@
         ></v-img>
       </div>
     </v-radio-group>
-    <v-btn elevation="2"    @click="submittingForm" >Submit</v-btn>
+    <v-btn elevation="2" @click="submittingForm" :disabled='!submittable' color='primary'>Submit</v-btn>
   </form>
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
+import axios from "axios";
+import { mapState } from "vuex";
 const liveMturk = "https://www.mturk.com/mturk/externalSubmit";
 const sandboxMturk = "https://workersandbox.mturk.com/mturk/externalSubmit";
 export default {
   data: () => ({
     action: null,
-    assignmentId: null,
+    assignmentId: "ASSIGNMENT_ID_NOT_AVAILABLE",
     sandbox: true,
     hitId: null,
     workerId: null,
     answer: null,
-
+    submittable: false,
     options: [
-      { value: 0, label: "Time series with good data quality", img: 'normal' },
-      { value: 1, label: "Time series with sudden spikes to negative values", img: "neg" },
-      { value: 2, label: "Time series with sudden spikes to zero", img: "zero" },
-      { value: 3, label: "Time series with sudden positive spikes", img: "pos" },
-      { value: 4, label: "Time series with repeated positive spikes", img: "rep" },
-      
+      { value: 0, label: "Time series with good data quality", img: "normal" },
+      {
+        value: 1,
+        label: "Time series with sudden spikes to negative values",
+        img: "neg",
+      },
+      {
+        value: 2,
+        label: "Time series with sudden spikes to zero",
+        img: "zero",
+      },
+      {
+        value: 3,
+        label: "Time series with sudden positive spikes",
+        img: "pos",
+      },
+      {
+        value: 4,
+        label: "Time series with repeated positive spikes",
+        img: "rep",
+      },
     ],
   }),
   created() {},
-  computed: {},
-  watch: {},
+  computed: { ...mapState(["fileName", "candidate", "candidate_position"]) },
+  watch: {
+    answer(v) {
+      if (v) this.submittable = true;
+    },
+  },
   mounted() {
     ({
       sandbox: this.sandbox,
@@ -56,6 +76,19 @@ export default {
   },
   methods: {
     async submittingForm() {
+      this.submittable = false;
+      const ddbUrl =
+        "https://t7oak2rx45.execute-api.us-east-1.amazonaws.com/Prod/submithit";
+      await axios.post(ddbUrl, {
+        assignmentId: this.assignmentId,
+        hitId: this.hitId,
+        workerId: this.workerId,
+        sandbox: this.sandbox,
+        fileName: this.fileName,
+        candidate: this.candidate,
+        candidate_position: this.candidate_position,
+        answer:this.answer
+      });
       this.$refs.form.submit();
     },
   },

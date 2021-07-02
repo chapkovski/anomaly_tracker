@@ -52,7 +52,6 @@ export default new Vuex.Store({
       commit('SET_DATA', data)
       const candidateIndex = _.findIndex(data, (i) => (i.x == state.candidate))
       commit("SET_CANDIDATE_POSITION", candidateIndex)
-
       commit('DATA_LOADED')
     }
   },
