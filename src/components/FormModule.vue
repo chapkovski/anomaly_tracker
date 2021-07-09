@@ -68,7 +68,7 @@ export default {
       hitId: this.hitId,
       workerId: this.workerId,
     } = this.$route.query);
-    if (this.sandbox) {
+    if (this.sandbox === 1) {
       this.action = sandboxMturk;
     } else {
       this.action = liveMturk;

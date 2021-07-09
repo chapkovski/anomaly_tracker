@@ -44,7 +44,6 @@ export default new Vuex.Store({
       // commit('DATA_LOADING')
       const dataURL = "https://blocke-channels-bucket.s3.amazonaws.com";
       const url = `${dataURL}/${state.fileName}.json`
-      console.debug("WHAT??A?", url)
       const resp = await axios.get(url)
       // const resp = await axios.get(dataURL, {params:{file:state.fileName}})
       console.debug(resp)
