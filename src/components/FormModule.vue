@@ -31,26 +31,28 @@ export default {
     answer: null,
     submittable: false,
     options: [
-      { value: 0, label: "Time series with good data quality", img: "normal" },
+      { value: 0, 
+      label: "Time series with good data quality", 
+      img: "good_data_quality" },
       {
         value: 1,
         label: "Time series with sudden spikes to negative values",
-        img: "neg",
+        img: "sudden_spike_to_negative_value",
       },
       {
         value: 2,
         label: "Time series with sudden spikes to zero",
-        img: "zero",
+        img: "sudden_spike_to_zero",
       },
       {
         value: 3,
         label: "Time series with sudden positive spikes",
-        img: "pos",
+        img: "sudden_positive_spike",
       },
       {
         value: 4,
         label: "Time series with repeated positive spikes",
-        img: "rep",
+        img: "repeated_positive_spike",
       },
     ],
   }),
