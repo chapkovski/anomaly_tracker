@@ -57,7 +57,7 @@ export default {
     ],
   }),
   created() {
-    console.debug('trying to localize the amp error', this.$route.query)
+    
   },
   computed: { ...mapState(["fileName", "candidate", "candidate_position"]) },
   watch: {
@@ -73,12 +73,12 @@ export default {
       hitId: this.hitId,
       workerId: this.workerId,
     } = this.$route.query);
-    if (this.sandbox === 1) {
+    if (parseInt(this.sandbox) === 1) {
       this.action = sandboxMturk;
     } else {
       this.action = liveMturk;
     }
- console.debug('hui', this.$route.query)
+ 
   },
   methods: {
     async submittingForm() {
