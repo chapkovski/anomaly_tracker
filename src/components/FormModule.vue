@@ -12,17 +12,27 @@
         ></v-img>
       </div>
     </v-radio-group>
-    <v-btn elevation="2" @click="submittingForm" :disabled='!submittable' color='primary'>Submit</v-btn>
+    <v-btn
+      elevation="2"
+      @click="submittingForm"
+      :disabled="!submittable"
+      color="primary"
+      >Submit</v-btn
+    >
   </form>
 </template>
 
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import { differenceInSeconds } from "date-fns";
 const liveMturk = "https://www.mturk.com/mturk/externalSubmit";
 const sandboxMturk = "https://workersandbox.mturk.com/mturk/externalSubmit";
 export default {
   data: () => ({
+    startTime: new Date(),
+    endTime: null,
+    timeSpent: null,
     action: null,
     assignmentId: "ASSIGNMENT_ID_NOT_AVAILABLE",
     sandbox: true,
@@ -31,9 +41,11 @@ export default {
     answer: null,
     submittable: false,
     options: [
-      { value: 0, 
-      label: "Time series with good data quality", 
-      img: "good_data_quality" },
+      {
+        value: 0,
+        label: "Time series with good data quality",
+        img: "good_data_quality",
+      },
       {
         value: 1,
         label: "Time series with sudden spikes to negative values",
@@ -56,9 +68,7 @@ export default {
       },
     ],
   }),
-  created() {
-    
-  },
+  created() {},
   computed: { ...mapState(["fileName", "candidate", "candidate_position"]) },
   watch: {
     answer(v) {
@@ -66,7 +76,6 @@ export default {
     },
   },
   mounted() {
-   
     ({
       sandbox: this.sandbox,
       assignmentId: this.assignmentId,
@@ -78,10 +87,11 @@ export default {
     } else {
       this.action = liveMturk;
     }
- 
   },
   methods: {
     async submittingForm() {
+      this.endTime = new Date();
+      this.timeSpent = differenceInSeconds(this.endTime, this.startTime);
       this.submittable = false;
       const ddbUrl =
         "https://t7oak2rx45.execute-api.us-east-1.amazonaws.com/Prod/submithit";
@@ -93,7 +103,10 @@ export default {
         fileName: this.fileName,
         candidate: this.candidate,
         candidate_position: this.candidate_position,
-        answer:this.answer
+        answer: this.answer,
+        timeSpent: this.timeSpent,
+        startTime: this.startTime,
+        endTime: this.endTime,
       });
       this.$refs.form.submit();
     },
