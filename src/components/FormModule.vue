@@ -57,7 +57,7 @@ export default {
     ],
   }),
   created() {
-   
+    console.debug('trying to localize the amp error', this.$route.query)
   },
   computed: { ...mapState(["fileName", "candidate", "candidate_position"]) },
   watch: {
