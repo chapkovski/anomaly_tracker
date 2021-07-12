@@ -56,7 +56,9 @@ export default {
       },
     ],
   }),
-  created() {},
+  created() {
+   
+  },
   computed: { ...mapState(["fileName", "candidate", "candidate_position"]) },
   watch: {
     answer(v) {
@@ -64,6 +66,7 @@ export default {
     },
   },
   mounted() {
+   
     ({
       sandbox: this.sandbox,
       assignmentId: this.assignmentId,
@@ -75,6 +78,7 @@ export default {
     } else {
       this.action = liveMturk;
     }
+ console.debug('hui', this.$route.query)
   },
   methods: {
     async submittingForm() {
