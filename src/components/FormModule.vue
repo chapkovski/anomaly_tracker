@@ -46,24 +46,16 @@ export default {
         label: "Time series with good data quality",
         img: "good_data_quality",
       },
+ 
       {
         value: 1,
-        label: "Time series with sudden spikes to negative values",
-        img: "sudden_spike_to_negative_value",
-      },
-      {
-        value: 2,
-        label: "Time series with sudden spikes to zero",
+        label: "Time series with downward spike(s)",
         img: "sudden_spike_to_zero",
       },
+      
       {
-        value: 3,
-        label: "Time series with sudden positive spikes",
-        img: "sudden_positive_spike",
-      },
-      {
-        value: 4,
-        label: "Time series with repeated positive spikes",
+        value: 2,
+        label: "Time series with upward spike(s)",
         img: "repeated_positive_spike",
       },
     ],
