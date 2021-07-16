@@ -21,7 +21,7 @@ import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
 
 export default {
   data: () => ({
-    eps:0,
+    eps: 0,
     chartOptions: {
       boost: { enabled: true },
       xAxis: {
@@ -29,6 +29,8 @@ export default {
         max: null,
         plotBands: [
           {
+            borderColor: "red",
+            borderWidth: 1,
             color: "#FCFFC5", // Color value
             from: null, // Start of the plot band
             to: null, // End of the plot band
@@ -56,9 +58,12 @@ export default {
   },
   watch: {
     data(val) {
-      this.eps = Math.max(parseInt((this.end_position-this.start_position)*0.5),10)
-      const innerEps = Math.max(parseInt(this.eps/2),5)
-      console.log('EPS',this.eps)
+      this.eps = Math.max(
+        parseInt((this.end_position - this.start_position) * 0.5),
+        10
+      );
+      const innerEps = Math.max(parseInt(this.eps / 2), 5);
+      console.log("EPS", this.eps);
       this.chartOptions.series[0].data = val;
 
       this.chartOptions.xAxis.min = val[this.start_position - this.eps].x;
