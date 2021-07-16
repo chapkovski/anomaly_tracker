@@ -15,7 +15,7 @@ import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
 
 export default {
   data: () => ({
-    message: "whatever111",
+  
     chartOptions: {
       boost: { enabled: true },
       series: [

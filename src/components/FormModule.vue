@@ -46,13 +46,13 @@ export default {
         label: "Time series with good data quality",
         img: "good_data_quality",
       },
- 
+
       {
         value: 1,
         label: "Time series with downward spike(s)",
         img: "sudden_spike_to_zero",
       },
-      
+
       {
         value: 2,
         label: "Time series with upward spike(s)",
@@ -61,7 +61,15 @@ export default {
     ],
   }),
   created() {},
-  computed: { ...mapState(["fileName", "candidate", "candidate_position"]) },
+  computed: {
+    ...mapState([
+      "fileName",
+      "start_cand",
+      "end_cand",
+      "start_position",
+      "end_position",
+    ]),
+  },
   watch: {
     answer(v) {
       if (v) this.submittable = true;
@@ -93,8 +101,11 @@ export default {
         workerId: this.workerId,
         sandbox: this.sandbox,
         fileName: this.fileName,
-        candidate: this.candidate,
-        candidate_position: this.candidate_position,
+        start_cand: parseInt(this.start_cand),
+        end_cand: parseInt(this.end_cand),
+        candidate:parseInt(this.start_cand),
+        start_position: parseInt(this.start_position),
+        end_position: parseInt(this.end_position),
         answer: this.answer,
         timeSpent: this.timeSpent,
         startTime: this.startTime,
