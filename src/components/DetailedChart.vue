@@ -29,7 +29,7 @@ export default {
         max: null,
         plotBands: [
           {
-            color: "orange", // Color value
+            color: "#FCFFC5", // Color value
             from: null, // Start of the plot band
             to: null, // End of the plot band
           },
