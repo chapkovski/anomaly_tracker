@@ -40,6 +40,7 @@ export default {
     workerId: null,
     answer: null,
     submittable: false,
+    bunch:null,
     options: [
       {
         value: 0,
@@ -81,6 +82,7 @@ export default {
       assignmentId: this.assignmentId,
       hitId: this.hitId,
       workerId: this.workerId,
+      bunch:this.bunch,
     } = this.$route.query);
     if (parseInt(this.sandbox) === 1) {
       this.action = sandboxMturk;
@@ -110,6 +112,7 @@ export default {
         timeSpent: this.timeSpent,
         startTime: this.startTime,
         endTime: this.endTime,
+        bunch: this.bunch
       });
       this.$refs.form.submit();
     },
