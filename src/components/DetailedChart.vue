@@ -60,7 +60,7 @@ export default {
     data(val) {
       this.eps = Math.max(
         parseInt((this.end_position - this.start_position) * 0.5),
-        10
+        100
       );
       const innerEps = Math.max(parseInt(this.eps / 2), 5);
       console.log("EPS", this.eps);
