@@ -60,6 +60,7 @@ export default new Vuex.Store({
       });
 
       commit('SET_DATA', data)
+      
       const startIndex = _.findIndex(data, (i) => (i.x == state.start_cand))
       
       const endIndex = _.findIndex(data, (i) => (i.x == state.end_cand))
