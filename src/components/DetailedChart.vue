@@ -62,8 +62,8 @@ export default {
         parseInt((this.end_position - this.start_position) * 0.5),
         100
       );
-      const innerEps = Math.max(parseInt(this.eps / 2), 5);
-      console.log("EPS", this.eps);
+      const innerEps = Math.max(parseInt(this.eps / 20), 5);
+
       this.chartOptions.series[0].data = val;
 
       this.chartOptions.xAxis.min = val[this.start_position - this.eps].x;
