@@ -10,7 +10,7 @@
     >
     </highcharts>
 
-    <div v-if="!dataLoading">
+    <div v-if="!dataLoading && zoomer">
       <v-btn @click="resetZoom">Reset zoom</v-btn>
     </div>
   </div>
@@ -20,32 +20,46 @@
 import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
 
 export default {
-  data: () => ({
-    eps: 0,
-    chartOptions: {
-      boost: { enabled: true },
-      xAxis: {
-        min: null,
-        max: null,
-        plotBands: [
+  props: {
+    zoomer: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data: function () {
+    return {
+      eps: 0,
+      chartOptions: {
+        chart: {
+          height: this.zoomer?null:200,
+        },
+        scrollbar: { enabled: false },
+        boost: { enabled: true },
+        navigator: { enabled: this.zoomer },
+        rangeSelector: { enabled: this.zoomer },
+        xAxis: {
+          min: null,
+          max: null,
+          plotBands: [
+            {
+              borderColor: "red",
+              borderWidth: 1,
+              color: "#FCFFC5", // Color value
+              from: null, // Start of the plot band
+              to: null, // End of the plot band
+            },
+          ],
+        },
+        series: [
           {
-            borderColor: "red",
-            borderWidth: 1,
-            color: "#FCFFC5", // Color value
-            from: null, // Start of the plot band
-            to: null, // End of the plot band
+            type: "line",
+            turboThreshold: 1000000,
+            data: [],
           },
         ],
       },
-      series: [
-        {
-          type: "line",
-          turboThreshold: 1000000,
-          data: [],
-        },
-      ],
-    },
-  }),
+    };
+  },
   computed: {
     ...mapState([
       "dataLoading",
@@ -64,9 +78,10 @@ export default {
       );
       const innerEps = Math.max(parseInt(this.eps / 2), 5);
       this.chartOptions.series[0].data = val;
-
-      this.chartOptions.xAxis.min = val[this.start_position - this.eps].x;
-      this.chartOptions.xAxis.max = val[this.end_position + this.eps].x;
+      if (this.zoomer) {
+        this.chartOptions.xAxis.min = val[this.start_position - this.eps].x;
+        this.chartOptions.xAxis.max = val[this.end_position + this.eps].x;
+      }
       this.chartOptions.xAxis.plotBands[0].from =
         val[this.start_position - innerEps].x;
       this.chartOptions.xAxis.plotBands[0].to =

@@ -6,7 +6,8 @@
         <v-row class="text-center">
           
           <v-col cols="12">
-            <detailed-chart></detailed-chart>
+            <detailed-chart :zoomer='false'></detailed-chart>
+            <detailed-chart :zoomer='true'></detailed-chart>
           </v-col>
         </v-row>
       </v-col>
@@ -24,6 +25,7 @@ export default {
   components: {
     FormModule,
     DetailedChart,
+    
   },
   data: () => ({}),
   created() {},

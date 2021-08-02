@@ -40,8 +40,8 @@ export default {
     workerId: null,
     answer: null,
     submittable: false,
-    bunch:null,
-    options: [
+    bunch: null,
+    inner_options: [
       {
         value: 0,
         label: "Time series with good data quality",
@@ -70,6 +70,10 @@ export default {
       "start_position",
       "end_position",
     ]),
+    options() {
+      console.debug(_.shuffle(this.inner_options));
+      return _.shuffle(this.inner_options);
+    },
   },
   watch: {
     answer(v) {
@@ -82,7 +86,7 @@ export default {
       assignmentId: this.assignmentId,
       hitId: this.hitId,
       workerId: this.workerId,
-      bunch:this.bunch,
+      bunch: this.bunch,
     } = this.$route.query);
     if (parseInt(this.sandbox) === 1) {
       this.action = sandboxMturk;
@@ -105,14 +109,14 @@ export default {
         fileName: this.fileName,
         start_cand: parseInt(this.start_cand),
         end_cand: parseInt(this.end_cand),
-        candidate:parseInt(this.start_cand),
+        candidate: parseInt(this.start_cand),
         start_position: parseInt(this.start_position),
         end_position: parseInt(this.end_position),
         answer: this.answer,
         timeSpent: this.timeSpent,
         startTime: this.startTime,
         endTime: this.endTime,
-        bunch: this.bunch
+        bunch: this.bunch,
       });
       this.$refs.form.submit();
     },
