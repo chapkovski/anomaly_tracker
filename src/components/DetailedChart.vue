@@ -25,13 +25,25 @@ export default {
       type: Boolean,
       default: true,
     },
+    title: {
+      type: String,
+      default: '',
+    },
   },
   data: function () {
     return {
       eps: 0,
       chartOptions: {
+        title: {
+          text: this.title,
+          floating: true,
+          align: "left",
+          x: 25,
+          y: 70,
+        },
+
         chart: {
-          height: this.zoomer?null:200,
+          height: this.zoomer ? 400 : 200,
         },
         scrollbar: { enabled: false },
         boost: { enabled: true },

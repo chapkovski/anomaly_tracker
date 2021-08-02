@@ -4,7 +4,11 @@
 
     <v-radio-group v-model="answer">
       <div v-for="i in options" :key="i.value">
-        <v-radio :label="i.label" :value="i.value" name="answer"></v-radio>
+        <v-radio :value="i.value" name="answer">
+          <template v-slot:label>
+            <div v-html="i.label"></div>
+          </template>
+        </v-radio>
         <v-img
           max-height="100"
           max-width="250"
@@ -28,6 +32,13 @@ import { mapState } from "vuex";
 import { differenceInSeconds } from "date-fns";
 const liveMturk = "https://www.mturk.com/mturk/externalSubmit";
 const sandboxMturk = "https://workersandbox.mturk.com/mturk/externalSubmit";
+const oki = {
+  value: 0,
+  label:
+    "<span class='green--text font-weight-bold'>No anomaly: </span>Time series with good data quality",
+  img: "good_data_quality",
+};
+
 export default {
   data: () => ({
     startTime: new Date(),
@@ -41,28 +52,27 @@ export default {
     answer: null,
     submittable: false,
     bunch: null,
-    inner_options: [
-      {
-        value: 0,
-        label: "Time series with good data quality",
-        img: "good_data_quality",
-      },
-
+    non_oki: [
       {
         value: 1,
-        label: "Time series with downward spike(s)",
+        label:
+          "<span class='red--text font-weight-bold'>Anomaly: </span>Time series with downward spike(s)",
         img: "sudden_spike_to_zero",
       },
 
       {
         value: 2,
-        label: "Time series with upward spike(s)",
+        label:
+          "<span class='red--text font-weight-bold'>Anomaly: </span>Time series with upward spike(s)",
         img: "repeated_positive_spike",
       },
     ],
   }),
   created() {},
   computed: {
+    permittedValues() {
+      return _.map(this.options, (i) => i.value);
+    },
     ...mapState([
       "fileName",
       "start_cand",
@@ -71,13 +81,13 @@ export default {
       "end_position",
     ]),
     options() {
-      console.debug(_.shuffle(this.inner_options));
-      return _.shuffle(this.inner_options);
+      const shuffled_nonoki = _.shuffle(this.non_oki);
+      return [oki, ...shuffled_nonoki];
     },
   },
   watch: {
     answer(v) {
-      if (v) this.submittable = true;
+      if (this.permittedValues.includes(v)) this.submittable = true;
     },
   },
   mounted() {
