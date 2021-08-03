@@ -4,7 +4,7 @@
       <v-col cols="8">
         <v-row class="text-center">
           <v-col cols="12">
-            <v-card class="my-3" v-if='false'>
+            <v-card class="my-3">
               <v-card-text>
                 <detailed-chart
                   :zoomer="false"
@@ -28,14 +28,13 @@
           <v-card-title>Instructions:</v-card-title>
           <v-card-text class="text-left">
             <div>
-              On the to  the left you can see the data for time series.
+              On two charts to the left you can see the data for time series.
             </div>
-            
+            <div>The first chart is the full data.</div>
             <div>
-              The  chart is zoomed to the area where we would you to
+              The second chart is zoomed to the area where we would you to
               detect if <span class='font-weight-bold red--text'>there is any anomaly </span> there.
             </div>
-            <div>You can zoom it out to see the entire time series, or you can reset to the initial zoom using 'Reset zoom' <button class=""></button></div>
           </v-card-text>
         </v-card>
         <form-module></form-module>
