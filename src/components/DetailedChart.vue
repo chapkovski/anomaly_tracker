@@ -18,6 +18,21 @@
 
 <script>
 import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
+const outerSetExtremes = (chart, spread) => {
+  const values = [];
+
+  chart.series[0].points.forEach((point) => {
+    if (point.visible) values.push(point.y);
+  });
+  const lb = Math.min(...values);
+  const ub = Math.max(...values);
+  const innerRange = ub - lb;
+
+  chart.yAxis[0].setExtremes(
+    lb - spread * innerRange,
+    ub + spread * innerRange
+  );
+};
 
 export default {
   props: {
@@ -27,11 +42,14 @@ export default {
     },
     title: {
       type: String,
-      default: '',
+      default: "",
     },
   },
-  data: function () {
+  data: function() {
+    const that = this;
     return {
+      spread: 2,
+      innerChart: null,
       eps: 0,
       chartOptions: {
         title: {
@@ -44,6 +62,13 @@ export default {
 
         chart: {
           height: this.zoomer ? 400 : 200,
+          events: {
+            load: function() {
+              that.innerChart = this;
+
+              outerSetExtremes(this, that.spread);
+            },
+          },
         },
         scrollbar: { enabled: false },
         boost: { enabled: true },
@@ -52,6 +77,11 @@ export default {
         xAxis: {
           min: null,
           max: null,
+          events: {
+            afterSetExtremes: function() {
+              outerSetExtremes(this.chart, that.spread);
+            },
+          },
           plotBands: [
             {
               borderColor: "red",
@@ -100,7 +130,7 @@ export default {
         val[this.end_position + innerEps].x;
     },
   },
-  mounted() {},
+  async mounted() {},
   methods: {
     resetZoom() {
       var chart = this.$refs.highcharts.chart;
