@@ -28,10 +28,11 @@ const outerSetExtremes = (chart, spread) => {
   const ub = Math.max(...values);
   const innerRange = ub - lb;
 
-  chart.yAxis[0].setExtremes(
-    lb - spread * innerRange,
-    ub + spread * innerRange
-  );
+  chart.yAxis[0]
+    .setExtremes
+    // lb - spread * innerRange,
+    // ub + spread * innerRange
+    ();
 };
 
 export default {
