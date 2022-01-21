@@ -74,7 +74,36 @@ export default {
         scrollbar: { enabled: false },
         boost: { enabled: true },
         navigator: { enabled: this.zoomer },
-        rangeSelector: { enabled: this.zoomer },
+        rangeSelector: {
+          enabled: this.zoomer,
+          buttons: [
+            {
+              type: "hour",
+              count: 1,
+              text: "1hr",
+            },
+            {
+              type: "hour",
+              count: 3,
+              text: "3hr",
+            },
+            {
+              type: "day",
+              count: 1,
+              text: "1day",
+            },
+            {
+              type: "day",
+              count: 3,
+              text: "3days",
+            },
+            {
+              type: "week",
+              count: 1,
+              text: "Week",
+            },
+          ],
+        },
         xAxis: {
           min: null,
           max: null,
@@ -117,9 +146,9 @@ export default {
     data(val) {
       this.eps = Math.max(
         parseInt((this.end_position - this.start_position) * 0.5),
-        10
+        20
       );
-      const innerEps = Math.max(parseInt(this.eps / 2), 5);
+      const innerEps = Math.max(parseInt(this.eps / 2), 3);
       this.chartOptions.series[0].data = val;
       if (this.zoomer) {
         this.chartOptions.xAxis.min = val[this.start_position - this.eps].x;
