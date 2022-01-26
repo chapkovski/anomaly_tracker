@@ -150,14 +150,16 @@ export default {
       );
       const innerEps = Math.max(parseInt(this.eps / 2), 3);
       this.chartOptions.series[0].data = val;
+      const lbXaxis = Math.max(this.start_position - this.eps, 0);
+      const ubXaxis = Math.min(this.end_position + this.eps, val.length - 1);
+      const lbBand = Math.max(this.start_position - innerEps, 0);
+      const ubBand = Math.min(this.end_position + innerEps, val.length - 1);
       if (this.zoomer) {
-        this.chartOptions.xAxis.min = val[this.start_position - this.eps].x;
-        this.chartOptions.xAxis.max = val[this.end_position + this.eps].x;
+        this.chartOptions.xAxis.min = val[lbXaxis].x;
+        this.chartOptions.xAxis.max = val[ubXaxis].x;
       }
-      this.chartOptions.xAxis.plotBands[0].from =
-        val[this.start_position - innerEps].x;
-      this.chartOptions.xAxis.plotBands[0].to =
-        val[this.end_position + innerEps].x;
+      this.chartOptions.xAxis.plotBands[0].from = val[lbBand].x;
+      this.chartOptions.xAxis.plotBands[0].to = val[ubBand].x;
     },
   },
   async mounted() {},
