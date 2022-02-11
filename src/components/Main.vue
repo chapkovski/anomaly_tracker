@@ -28,12 +28,28 @@
           <v-card-title>Instructions:</v-card-title>
           <v-card-text class="text-left">
             <div>
-              On two charts to the left you can see the data for time series.
+              On two charts to the left, you can see the data for the time
+              series. Data usually have regular patterns for some days. The
+              first chart is the full data. Please use full data to see if the
+              pattern was broken. The second chart is zoomed to the area where
+              we would you to detect if there is any anomaly there. This chart
+              can help to see the block with the potential anomaly with
+              different zoom.
             </div>
-            <div>The first chart is the full data.</div>
+
             <div>
-              The second chart is zoomed to the area where we would you to
-              detect if <span class='font-weight-bold red--text'>there is any anomaly </span> there.
+              If there is uncertainty about the pattern you can use the mouse to
+              zoom/pan bottom plot to check nearby regions.
+            </div>
+
+            <div>Special cases:</div>
+            <div>
+              1) If the data sector you are evaluating is the part of a bigger
+              anomaly label it as an anomaly
+            </div>
+            <div>
+              2) If the data sector has a spike, but it's part of the regular
+              pattern label it as not an anomaly
             </div>
           </v-card-text>
         </v-card>
