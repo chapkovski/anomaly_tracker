@@ -76,6 +76,7 @@ export default {
         navigator: { enabled: this.zoomer },
         rangeSelector: {
           enabled: this.zoomer,
+          selected:3,
           buttons: [
             {
               type: "hour",
