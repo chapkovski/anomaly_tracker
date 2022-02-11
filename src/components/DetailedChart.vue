@@ -127,6 +127,10 @@ export default {
             type: "line",
             turboThreshold: 1000000,
             data: [],
+          lineWidth:0.5,
+           dataGrouping: {
+            enabled: false
+        },
           },
         ],
       },

@@ -15,11 +15,14 @@ import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
 
 export default {
   data: () => ({
-  
     chartOptions: {
       boost: { enabled: true },
       series: [
         {
+          lineWidth: 0.5,
+          dataGrouping: {
+            enabled: false,
+          },
           type: "line",
           turboThreshold: 1000000,
           data: [],
