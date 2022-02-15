@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { subHours, addHours, fromUnixTime, getUnixTime } from "date-fns";
 import { mapActions, mapMutations, mapState, mapGetters } from "vuex";
 const outerSetExtremes = (chart, spread) => {
   const values = [];
@@ -76,7 +77,7 @@ export default {
         navigator: { enabled: this.zoomer },
         rangeSelector: {
           enabled: this.zoomer,
-          selected:3,
+          selected: 3,
           buttons: [
             {
               type: "hour",
@@ -128,10 +129,10 @@ export default {
             type: "line",
             turboThreshold: 1000000,
             data: [],
-          lineWidth:0.5,
-           dataGrouping: {
-            enabled: false
-        },
+            lineWidth: 0.5,
+            dataGrouping: {
+              enabled: false,
+            },
           },
         ],
       },
@@ -149,6 +150,7 @@ export default {
   },
   watch: {
     data(val) {
+      const currentTime = fromUnixTime(val[this.start_position].x / 1000);
       this.eps = Math.max(
         parseInt((this.end_position - this.start_position) * 0.5),
         20
@@ -160,8 +162,13 @@ export default {
       const lbBand = Math.max(this.start_position - innerEps, 0);
       const ubBand = Math.min(this.end_position + innerEps, val.length - 1);
       if (this.zoomer) {
-        this.chartOptions.xAxis.min = val[lbXaxis].x;
-        this.chartOptions.xAxis.max = val[ubXaxis].x;
+        // this.chartOptions.xAxis.min = val[lbXaxis].x;
+        // this.chartOptions.xAxis.max = val[ubXaxis].x;
+        const lb = getUnixTime(subHours(currentTime, 36)) * 1000;
+        const ub = getUnixTime(addHours(currentTime, 36)) * 1000;
+
+        this.chartOptions.xAxis.min = lb;
+        this.chartOptions.xAxis.max = ub;
       }
       this.chartOptions.xAxis.plotBands[0].from = val[lbBand].x;
       this.chartOptions.xAxis.plotBands[0].to = val[ubBand].x;
